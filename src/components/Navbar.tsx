@@ -1,10 +1,12 @@
 "use client";
+
 import { Menu, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Button, buttonVariants } from "./ui/button";
 import UserIcon from "./ui/userIcon";
+import { Login } from "./Login";
 
 const menus = [
   { title: "Home", path: "/your-path" },
@@ -14,9 +16,11 @@ const menus = [
 ];
 
 const Navbar = () => {
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSignin, setOpenSignin] = useState(false);
 
-  const user = true;
+  const user = false;
 
   return (
     <nav className="bg-white w-full border-b ">
@@ -63,18 +67,15 @@ const Navbar = () => {
           ) : (
             <>
               <div className="flex gap-4">
-                <Link
-                  className={buttonVariants({ variant: "ghost" })}
-                  href={"/login"}
-                >
+                <Button onClick={() => setOpenLogin(true)} variant="ghost">
                   Login
-                </Link>
-                <Link
-                  className={buttonVariants({ variant: "default", size: "lg" })}
-                  href={"/login"}
-                >
+                </Button>
+
+                <Button className="text-white" variant="default" size="lg">
                   Signin
-                </Link>
+                </Button>
+
+                <Login open={openLogin} setOpen={setOpenLogin} />
               </div>
             </>
           )}

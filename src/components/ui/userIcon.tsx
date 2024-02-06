@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button } from "./button";
 import Image from "next/image";
@@ -17,20 +19,18 @@ const UserIcon = () => {
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button variant="ghost">
-              <div
-                className="cover
+            <div
+              className="cover
         rounded-full overflow-hidden
        "
-              >
-                <Image
-                  src="/images/alan.jpg"
-                  alt="user icon"
-                  width={40}
-                  height={50}
-                />
-              </div>
-            </Button>
+            >
+              <Image
+                src="/images/alan.jpg"
+                alt="user icon"
+                width={40}
+                height={50}
+              />
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mt-6">
             <DropdownMenuLabel className="text-sm font-medium ">
