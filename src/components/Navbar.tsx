@@ -7,6 +7,8 @@ import React, { useState } from "react";
 import { Button, buttonVariants } from "./ui/button";
 import UserIcon from "./ui/userIcon";
 import { Login } from "./Login";
+import { Signup } from "./Signup";
+import { signIn , signOut, useSession , getProviders} from 'next-auth/react'
 
 const menus = [
   { title: "Home", path: "/your-path" },
@@ -18,7 +20,7 @@ const menus = [
 const Navbar = () => {
   const [state, setState] = useState(true);
   const [openLogin, setOpenLogin] = useState(false);
-  const [openSignin, setOpenSignin] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
 
   const user = false;
 
@@ -70,12 +72,17 @@ const Navbar = () => {
                 <Button onClick={() => setOpenLogin(true)} variant="ghost">
                   Login
                 </Button>
+                <Login open={openLogin} setOpen={setOpenLogin} />
 
-                <Button className="text-white" variant="default" size="lg">
+                <Button
+                  onClick={() => setOpenSignup(true)}
+                  className="text-white"
+                  variant="default"
+                  size="lg"
+                >
                   Signin
                 </Button>
-
-                <Login open={openLogin} setOpen={setOpenLogin} />
+                <Signup open={openSignup} setOpen={setOpenSignup} />
               </div>
             </>
           )}

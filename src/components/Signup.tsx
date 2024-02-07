@@ -24,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function Login({
+export function Signup({
   open,
   setOpen,
 }: {
@@ -43,7 +43,7 @@ export function Login({
           >
             <DialogHeader>
               <DialogTitle className=" text-center mb-5 text-2xl font-medium     ">
-                Login
+                Register
               </DialogTitle>
               <DialogDescription className=" text-sm text-gray-600 mb-5 ">
                 Log in to your Account.
@@ -90,8 +90,12 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
         <Label htmlFor="username">Username</Label>
         <Input id="username" defaultValue="" />
       </div>
+      <div className="grid gap-2">
+        <Label htmlFor="username">Password</Label>
+        <Input type="password" id="password" defaultValue="" />
+      </div>
       <Button className="mt-3 text-white" type="submit">
-        Save changes
+        Create Account
       </Button>
 
       <div>
