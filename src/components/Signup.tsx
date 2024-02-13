@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -39,7 +40,7 @@ export function Signup({
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent
             style={{ borderRadius: "20px" }}
-            className="sm:max-w-[425px] bg-white rounded-full  "
+            className="sm:max-w-[425px] bg-white p-10 rounded-full  "
           >
             <DialogHeader>
               <DialogTitle className=" text-center mb-5 text-2xl font-medium     ">
@@ -80,18 +81,49 @@ export function Signup({
 }
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+
+    try {
+      const res = await fetch("api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (res.status == 400) {
+        console.log("this email is allridy in use !!");
+      } else {
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <form className={cn("grid items-start gap-6 my-4     ", className)}>
+    <form
+      onSubmit={handleSubmit}
+      className={cn("grid items-start gap-6 my-4     ", className)}
+    >
       <div className="grid gap-2">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" defaultValue="" />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="username">Username</Label>
-        <Input id="username" defaultValue="" />
+        <Label htmlFor="username">Password</Label>
+        <Input type="password" id="username" defaultValue="" />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="username">Password</Label>
+        <Label htmlFor="username">Confirm Password</Label>
         <Input type="password" id="password" defaultValue="" />
       </div>
       <Button className="mt-3 text-white" type="submit">

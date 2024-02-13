@@ -39,7 +39,7 @@ export function Login({
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent
             style={{ borderRadius: "20px" }}
-            className="sm:max-w-[425px] bg-white rounded-full  "
+            className="sm:max-w-[425px] bg-white p-10 rounded-full  "
           >
             <DialogHeader>
               <DialogTitle className=" text-center mb-5 text-2xl font-medium     ">

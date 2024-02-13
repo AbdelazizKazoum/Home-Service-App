@@ -3,12 +3,11 @@
 import { Menu, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, buttonVariants } from "./ui/button";
 import UserIcon from "./ui/userIcon";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
-import { signIn , signOut, useSession , getProviders} from 'next-auth/react'
 
 const menus = [
   { title: "Home", path: "/your-path" },
