@@ -88,7 +88,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
     const password = e.target[1].value;
 
     try {
-      const res = await fetch("api/auth/register", {
+      const res = await fetch("api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

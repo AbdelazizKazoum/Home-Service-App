@@ -24,6 +24,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 export function Login({
   open,
   setOpen,
@@ -49,46 +52,57 @@ export function Login({
                 Log in to your Account.
               </DialogDescription>
             </DialogHeader>
-            <ProfileForm />
+            <LoginForm />
           </DialogContent>
         </Dialog>
       </div>
     );
   }
-
-  //   return (
-  //     <Drawer open={open} onOpenChange={setOpen}>
-  //       <DrawerTrigger asChild>
-  //         <Button variant="outline">Edit Profile</Button>
-  //       </DrawerTrigger>
-  //       <DrawerContent>
-  //         <DrawerHeader className="text-left">
-  //           <DrawerTitle>Edit profile</DrawerTitle>
-  //           <DrawerDescription>
-  //             Make changes to your profile here. Click save when you're done.
-  //           </DrawerDescription>
-  //         </DrawerHeader>
-  //         <ProfileForm className="px-4" />
-  //         <DrawerFooter className="pt-2">
-  //           <DrawerClose asChild>
-  //             <Button variant="outline">Cancel</Button>
-  //           </DrawerClose>
-  //         </DrawerFooter>
-  //       </DrawerContent>
-  //     </Drawer>
-  //   );
 }
 
-function ProfileForm({ className }: React.ComponentProps<"form">) {
+function LoginForm({ className }: React.ComponentProps<"form">) {
+  const session = useSession();
+  const router = useRouter();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+
+    console.log(email, password);
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (res?.error) console.log(res.error);
+    else console.log(res);
+
+    if (res?.url) router.replace("/home");
+  };
+
+  React.useEffect(() => {
+    if (session?.status === "authenticated") {
+      console.log("authenticated");
+    } else {
+      console.log("somthing is wrong");
+    }
+  }, [router, session]);
+
   return (
-    <form className={cn("grid items-start gap-6 my-4     ", className)}>
+    <form
+      onSubmit={handleSubmit}
+      className={cn("grid items-start gap-6 my-4     ", className)}
+    >
       <div className="grid gap-2">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" defaultValue="" />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="username">Username</Label>
-        <Input id="username" defaultValue="" />
+        <Label htmlFor="username">Password</Label>
+        <Input type="password" id="password" defaultValue="" />
       </div>
       <Button className="mt-3 text-white" type="submit">
         Save changes
