@@ -100,7 +100,7 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
       className={cn("grid items-start gap-6 my-4     ", className)}
     >
       <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">Email dev</Label>
         <Input type="email" id="email" defaultValue="" />
       </div>
       <div className="grid gap-2">
