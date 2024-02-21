@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "./ui/button";
 import UserIcon from "./ui/userIcon";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
+import { signOut, useSession } from "next-auth/react";
 
 const menus = [
   { title: "Home", path: "/your-path" },
@@ -20,8 +21,12 @@ const Navbar = () => {
   const [state, setState] = useState(true);
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
+  const { data: session } = useSession();
 
-  const user = false;
+  useEffect(() => {
+    console.log(session);
+  }, [session]);
+  const user = session?.user;
 
   return (
     <nav className="bg-white w-full border-b ">

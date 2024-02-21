@@ -63,6 +63,8 @@ export function Login({
 function LoginForm({ className }: React.ComponentProps<"form">) {
   const session = useSession();
   const router = useRouter();
+
+  const [error, setError] = React.useState<string>();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -77,15 +79,16 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
       password,
     });
 
-    if (res?.error) console.log(res.error);
+    if (res?.error) setError(res.error);
     else console.log(res);
 
-    if (res?.url) router.replace("/home");
+    if (res?.url) router.replace("/");
   };
 
   React.useEffect(() => {
     if (session?.status === "authenticated") {
-      console.log("authenticated");
+      console.log(session?.status);
+      location.reload();
     } else {
       console.log("somthing is wrong");
     }
@@ -107,9 +110,8 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
       <Button className="mt-3 text-white" type="submit">
         Save changes
       </Button>
-
       <div>
-        <p className=" text-sm ">You don't have account !,</p>
+        <p className=" -mt-3 text-sm text-red-500 ">{error}</p>
       </div>
     </form>
   );

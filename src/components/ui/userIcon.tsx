@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "./button";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 import {
   DropdownMenu,
@@ -46,8 +47,11 @@ const UserIcon = () => {
             <DropdownMenuItem className=" text-gray-600 ">
               Team
             </DropdownMenuItem>
-            <DropdownMenuItem className=" text-gray-600 ">
-              Subscription
+            <DropdownMenuItem
+              onClick={() => signOut()}
+              className=" cursor-pointer text-gray-600 "
+            >
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

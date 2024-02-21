@@ -22,7 +22,6 @@ export const authOptions: any = {
         await connect();
 
         try {
-          console.log("hello world !!!!!");
           const user = await User.findOne({ email: credentials.email });
 
           if (user) {
@@ -35,8 +34,6 @@ export const authOptions: any = {
               return user;
             }
           }
-
-          return;
         } catch (error: any) {
           throw new Error(error);
         }
