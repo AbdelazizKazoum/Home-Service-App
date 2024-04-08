@@ -45,8 +45,8 @@ export function Login({
             className="sm:max-w-[425px] bg-white p-10 rounded-full  "
           >
             <DialogHeader>
-              <DialogTitle className=" text-center mb-5 text-2xl font-medium     ">
-                Login
+              <DialogTitle className=" uppercase text-center mb-5 text-xl font-medium     ">
+                Sign in
               </DialogTitle>
               <DialogDescription className=" text-sm text-gray-600 mb-5 ">
                 Log in to your Account.
@@ -70,7 +70,6 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
 
     const email = e.target[0].value;
     const password = e.target[1].value;
-
     console.log(email, password);
 
     const res = await signIn("credentials", {
@@ -84,15 +83,6 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
 
     if (res?.url) router.replace("/");
   };
-
-  React.useEffect(() => {
-    if (session?.status === "authenticated") {
-      console.log(session?.status);
-      location.reload();
-    } else {
-      console.log("somthing is wrong");
-    }
-  }, [router, session]);
 
   return (
     <form
@@ -108,7 +98,14 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
         <Input type="password" id="password" defaultValue="" />
       </div>
       <Button className="mt-3 text-white" type="submit">
-        Save changes
+        Login
+      </Button>
+      <Button
+        className="-mt-2 bg-gray-900 hover:bg-gray-800 text-white"
+        type="button"
+        onClick={() => signIn("github")}
+      >
+        Login with Github
       </Button>
       <div>
         <p className=" -mt-3 text-sm text-red-500 ">{error}</p>

@@ -48,7 +48,7 @@ const UserIcon = () => {
               Team
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/" })}
               className=" cursor-pointer text-gray-600 "
             >
               Log out

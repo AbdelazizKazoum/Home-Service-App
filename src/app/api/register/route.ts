@@ -13,7 +13,7 @@ export const POST = async (request: any) => {
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-    return new NextResponse("this email is in allridy in use!", {
+    return new NextResponse("this email is allridy in use!", {
       status: 400,
     });
   }

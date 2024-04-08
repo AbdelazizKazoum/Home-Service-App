@@ -1,4 +1,3 @@
-import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import nextAuth, { Account, User as authUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -46,6 +45,32 @@ export const authOptions: any = {
     }),
     // ...add more providers here
   ],
+
+  callbacks: {
+    async signIn({ user, account }: { user: authUser; account: Account }) {
+      if (account?.provider === "credentials") {
+        return true;
+      }
+      if (account?.provider == "github") {
+        connect();
+        try {
+          const existing = await User.findOne({ email: user.email });
+          if (!existing) {
+            const newUser = new User({
+              email: user.email,
+            });
+
+            await newUser.save();
+            return true;
+          }
+          return true;
+        } catch (error) {
+          console.log("error saving user : ", error);
+          return false;
+        }
+      }
+    },
+  },
 };
 
 export const handler = nextAuth(authOptions);

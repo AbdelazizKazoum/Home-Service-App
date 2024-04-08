@@ -28,6 +28,16 @@ const Navbar = () => {
   }, [session]);
   const user = session?.user;
 
+  React.useEffect(() => {
+    if (session?.status === "authenticated") {
+      console.log(session?.status);
+      location.reload();
+    } else {
+      console.log(session);
+      console.log("somthing is wrong");
+    }
+  }, [session]);
+
   return (
     <nav className="bg-white w-full border-b ">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
