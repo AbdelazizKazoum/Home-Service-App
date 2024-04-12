@@ -1,4 +1,5 @@
 import GithubProvider from "next-auth/providers/github";
+import KeycloakProvider from "next-auth/providers/keycloak";
 import nextAuth, { Account, User as authUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/User";
@@ -43,6 +44,11 @@ export const authOptions: any = {
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
+    KeycloakProvider({
+      clientId: process.env.KEYCLOAK_ID,
+      clientSecret: process.env.KEYCLOAK_SECRET,
+      issuer: process.env.KEYCLOAK_ISSUER,
+    }),
     // ...add more providers here
   ],
 
@@ -51,6 +57,7 @@ export const authOptions: any = {
       if (account?.provider === "credentials") {
         return true;
       }
+
       if (account?.provider == "github") {
         connect();
         try {
@@ -59,10 +66,20 @@ export const authOptions: any = {
             const newUser = new User({
               email: user.email,
             });
-
             await newUser.save();
             return true;
           }
+          return true;
+        } catch (error) {
+          console.log("error saving user : ", error);
+          return false;
+        }
+      }
+
+      if (account?.provider == "keycloak") {
+        // connect();
+        try {
+          console.log("authenticated");
           return true;
         } catch (error) {
           console.log("error saving user : ", error);

@@ -107,6 +107,13 @@ function LoginForm({ className }: React.ComponentProps<"form">) {
       >
         Login with Github
       </Button>
+      <Button
+        className="-mt-2 bg-gray-900 hover:bg-gray-800 text-white"
+        type="button"
+        onClick={() => signIn("keycloak")}
+      >
+        Login with Keycloak
+      </Button>
       <div>
         <p className=" -mt-3 text-sm text-red-500 ">{error}</p>
       </div>
