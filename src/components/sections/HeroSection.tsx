@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section className="flex flex-col md:flex-row gap-10 justify-center items-center">
       <div className="">
         <h1 className="font-[850]  md:text-[3.575rem] text-[2rem]  m-2 text-darkBlue ">
-          Web boost growth for your startup business{" "}
+          Find Home Service/Repair Near You{" "}
         </h1>
         <p className="text-[0.9rem] md:text-[1.1rem]  font-sm  my-5 m-2">
           Our goal is top at the heart of creativity services industry as a

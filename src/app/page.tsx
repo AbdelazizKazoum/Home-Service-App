@@ -1,5 +1,6 @@
 "use client";
-import BusinessListSection from "@/components/sections/BusinessListSection";
+import { BusinessListSection } from "@/components/sections/BusinessListSection";
+import CategoryListSection from "@/components/sections/CategoryListSection";
 import HeroSection from "@/components/sections/HeroSection";
 import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
@@ -12,6 +13,7 @@ const Home = () => {
   return (
     <div className=" mt-5 ">
       <HeroSection />
+      <CategoryListSection />
       <BusinessListSection />
     </div>
   );

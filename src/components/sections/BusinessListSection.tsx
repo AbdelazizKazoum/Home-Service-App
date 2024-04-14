@@ -1,59 +1,105 @@
-import React from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
+import React from "react";
 
-const categoryList = [
-  {
-    label: "Cleaning",
-    icon: "/images/businessList/paintbrush.png",
-  },
-  {
-    label: "Repair",
-    icon: "/images/businessList/support.png",
-  },
-  {
-    label: "Painting",
-    icon: "/images/businessList/paintbrush.png",
-  },
-  {
-    label: "Shifting",
-    icon: "/images/businessList/cargo-truck.png",
-  },
-  {
-    label: "Plumbing",
-    icon: "/images/businessList/mop.png",
-  },
-  {
-    label: "Electric",
-    icon: "/images/businessList/paintbrush.png",
-  },
-];
+export const BusinessListSection = () => {
+  const businessList = [
+    {
+      name: "Senior Editor",
+      category: "Cleaning",
+      contactPerson: "Neile Knoller",
+      adress: "2 Debra Lane",
+      image: "/images/businessList/house_cleaning.jpg",
+    },
+    {
+      name: "Nurse",
+      category: "Plumbing",
+      contactPerson: "Haven Gussie",
+      adress: "3 Spaight Drive",
+      image: "/images/businessList/houss_reparing.jpg",
+    },
+    {
+      name: "Sales Associate",
+      category: "Repair",
+      contactPerson: "Alina Langabeer",
+      adress: "9 Ruskin Center",
+      image: "/images/businessList/washing_clouthes.jpg",
+    },
+    {
+      name: "Tax Accountant",
+      category: "Plumbing",
+      contactPerson: "Howey Bulloch",
+      adress: "729 Basil Court",
+      image: "/images/businessList/house_cleaning.jpg",
+    },
+    {
+      name: "Research Associate",
+      category: "Painting",
+      contactPerson: "Hermine Sallowaye",
+      adress: "93 Mayer Center",
+      image: "/images/businessList/washing_clouthes.jpg",
+    },
+    {
+      name: "Staff Accountant III",
+      category: "Shifting",
+      contactPerson: "Kerry Anscott",
+      adress: "0635 New Castle Pass",
+      image: "/images/businessList/houss_reparing.jpg",
+    },
+    {
+      name: "Senior Financial Analyst",
+      category: "Repair",
+      contactPerson: "Horten Bleythin",
+      adress: "4670 Dottie Pass",
+      image: "/images/businessList/house_cleaning.jpg",
+    },
+    {
+      name: "Administrative Assistant I",
+      category: "Plumbing",
+      contactPerson: "Kingsley McFie",
+      adress: "71 Trailsway Alley",
+      image: "/images/businessList/houss_reparing.jpg",
+    },
+    {
+      name: "Cost Accountant",
+      category: "Cleaning",
+      contactPerson: "Gannie Shoebridge",
+      adress: "275 Jenna Junction",
+      image: "/images/businessList/house_cleaning.jpg",
+    },
+    {
+      name: "VP Accounting",
+      category: "Electric",
+      contactPerson: "Isahella Alchin",
+      adress: "91002 Haas Street",
+      image: "/images/businessList/house_cleaning.jpg",
+    },
+  ];
 
-const BusinessListSection = () => {
   return (
-    <div className=" flex-row justify-center mt-[100px] ">
-      <div className="flex m-auto gap-3 max-w-screen-sm ">
-        <Input placeholder="Search" type="text" className=" text-gray-600" />
-        <Button variant="default" size="icon" className=" cursor-pointer">
-          <CiSearch color="white" className="  " />
-        </Button>
-      </div>
-      <div className="mt-10 max-w-4xl m-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6  gap-5 place-content-center">
-          {categoryList.map((item, i) => (
-            <div className=" flex flex-col gap-3  items-center bg-orange-200 p-5 rounded-sm cursor-pointer hover:scale-110 translate-all ease-in-out  ">
-              <Image alt="image" width={50} height={50} src={item.icon} />
-              <h3 className=" md:text-sm text-xs text-gray-800 ">
-                {item.label}
-              </h3>
+    <div className="mb-5">
+      <h1 className="font-bold text-[22px] mb-4 ">Popular Business :</h1>
+      <div className="grid grid-cols-2  md:grid-cols-4 gap-6">
+        {businessList.map((item, index) => (
+          <div className=" shadow-md rounded cursor-pointer hover:shadow-lg hover:shadow-primary ">
+            <Image
+              width={500}
+              height={200}
+              src={item.image}
+              alt={item.name}
+              className="object-cover h-[150px] md:h-[200px]  rounded  "
+            />
+
+            <div className="flex flex-col items-baseline mt-2 gap-1 p-2  ">
+              <h2 className=" text-xs text-primary  bg-orange-200 rounded-full p-2     ">
+                {item.category}
+              </h2>
+              <h2 className=" font-bold   "> {item.name} </h2>
+              <h2 className=" font-sm text-primary"> {item.contactPerson} </h2>
+              <h2 className=" text-xs"> {item.adress} </h2>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-export default BusinessListSection;
