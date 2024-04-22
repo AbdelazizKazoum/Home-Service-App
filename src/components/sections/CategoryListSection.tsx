@@ -3,6 +3,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
+import Link from "next/link";
 
 const categoryList = [
   {
@@ -44,12 +45,15 @@ const CategoryListSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6  gap-5 place-content-center">
           {categoryList.length > 0
             ? categoryList.map((item, i) => (
-                <div className=" flex flex-col gap-3 w-[130px]  h-[120px] items-center bg-orange-200 p-5 rounded-sm cursor-pointer hover:scale-110 translate-all ease-in-out  ">
+                <Link
+                  href={`/search/${item.label}`}
+                  className=" flex flex-col gap-3 w-[130px]  h-[120px] items-center bg-orange-200 p-5 rounded-sm cursor-pointer hover:scale-110 translate-all ease-in-out  "
+                >
                   <Image alt="image" width={50} height={50} src={item.icon} />
                   <h3 className=" md:text-sm text-xs text-gray-800 ">
                     {item.label}
                   </h3>
-                </div>
+                </Link>
               ))
             : [1, 2, 3, 4, 5, 6].map((item, i) => (
                 <div className=" flex  flex-col gap-3 w-[130px]  h-[120px] items-center animate-pulse bg-slate-200 p-5 rounded-sm cursor-pointer hover:scale-110 translate-all ease-in-out  ">
