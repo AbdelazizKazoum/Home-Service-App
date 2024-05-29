@@ -4,15 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import { useRouter } from "next/navigation";
+import { BusinessListType } from "@/types/businessTypes";
 
-interface BusinessListType {
-  id: string;
-  name: string;
-  category: string;
-  contactPerson: string;
-  adress: string;
-  image: string;
-}
+
 
 const data = [
   {
