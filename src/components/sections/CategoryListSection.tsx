@@ -34,7 +34,7 @@ const categoryList = [
 
 const CategoryListSection = () => {
   return (
-    <div className=" flex-row justify-center m-[80px] ">
+    <div className=" flex-row justify-center m-[80px] mt-3 md:mt-10 lg:mt-2 ">
       <div className="flex m-auto gap-3 max-w-screen-sm ">
         <Input placeholder="Search" type="text" className=" text-gray-600" />
         <Button variant="default" size="icon" className=" cursor-pointer">

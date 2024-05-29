@@ -6,17 +6,17 @@ const HeroSection = () => {
   return (
     <section className="flex flex-col md:flex-row gap-10 justify-center items-center">
       <div className="">
-        <h1 className="font-[850]  md:text-[3.575rem] text-[2rem]  m-2 text-darkBlue ">
-          Find Home Service/Repair Near You{" "}
+        <h1 className="font-[650] leading-snug  md:text-[3.200rem] text-[2rem]  m-2  ">
+          Find Home Service, Repair Near You{" "}
         </h1>
-        <p className="text-[0.9rem] md:text-[1.1rem]  font-sm  my-5 m-2">
+        <p className="text-[0.9rem] md:text-[1.1rem]  my-5 m-2">
           Our goal is top at the heart of creativity services industry as a
           digitale creator. In has after comment
         </p>
         <div className="flex  sm:flex-row gap-5 items-center flex-wrap">
           <Button
             color=""
-            className="rounded-full text-white px-8 py-5   md:px-12 font-sm md:py-6"
+            className="rounded-ful text-white px-8 py-5   md:px-12 font-sm md:py-6"
           >
             Get Started
           </Button>
