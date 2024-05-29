@@ -3,8 +3,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
+import { useRouter } from "next/navigation";
 
 interface BusinessListType {
+  id: string;
   name: string;
   category: string;
   contactPerson: string;
@@ -14,6 +16,7 @@ interface BusinessListType {
 
 const data = [
   {
+    id: 1,
     name: "Senior Editor",
     category: "Cleaning",
     contactPerson: "Neile Knoller",
@@ -21,6 +24,8 @@ const data = [
     image: "/images/businessList/house_cleaning.jpg",
   },
   {
+    id: 1,
+
     name: "Nurse",
     category: "Plumbing",
     contactPerson: "Haven Gussie",
@@ -28,6 +33,8 @@ const data = [
     image: "/images/businessList/houss_reparing.jpg",
   },
   {
+    id: 1,
+
     name: "Sales Associate",
     category: "Repair",
     contactPerson: "Alina Langabeer",
@@ -35,6 +42,8 @@ const data = [
     image: "/images/businessList/washing_clouthes.jpg",
   },
   {
+    id: 1,
+
     name: "Tax Accountant",
     category: "Plumbing",
     contactPerson: "Howey Bulloch",
@@ -42,6 +51,8 @@ const data = [
     image: "/images/businessList/house_cleaning.jpg",
   },
   {
+    id: 2,
+
     name: "Research Associate",
     category: "Painting",
     contactPerson: "Hermine Sallowaye",
@@ -49,6 +60,8 @@ const data = [
     image: "/images/businessList/washing_clouthes.jpg",
   },
   {
+    id: 3,
+
     name: "Staff Accountant III",
     category: "Shifting",
     contactPerson: "Kerry Anscott",
@@ -56,6 +69,8 @@ const data = [
     image: "/images/businessList/houss_reparing.jpg",
   },
   {
+    id: 4,
+
     name: "Senior Financial Analyst",
     category: "Repair",
     contactPerson: "Horten Bleythin",
@@ -63,6 +78,8 @@ const data = [
     image: "/images/businessList/house_cleaning.jpg",
   },
   {
+    id: 5,
+
     name: "Administrative Assistant I",
     category: "Plumbing",
     contactPerson: "Kingsley McFie",
@@ -70,6 +87,8 @@ const data = [
     image: "/images/businessList/houss_reparing.jpg",
   },
   {
+    id: 6,
+
     name: "Cost Accountant",
     category: "Cleaning",
     contactPerson: "Gannie Shoebridge",
@@ -77,6 +96,8 @@ const data = [
     image: "/images/businessList/house_cleaning.jpg",
   },
   {
+    id: 7,
+
     name: "VP Accounting",
     category: "Electric",
     contactPerson: "Isahella Alchin",
@@ -86,6 +107,8 @@ const data = [
 ];
 
 export const BusinessListSection = ({ category }: { category: string }) => {
+  const router = useRouter();
+
   console.log("get catory :", category);
   const [businessList, setBusinessList] = useState<BusinessListType[]>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -130,7 +153,10 @@ export const BusinessListSection = ({ category }: { category: string }) => {
           ) : (
             <>
               {businessList.map((item, index) => (
-                <div className=" shadow-md rounded  hover:shadow-sm hover:shadow-primary cursor-pointer ">
+                <div
+                  onClick={() => router.push(`/details/${item.id}`)}
+                  className=" shadow-md rounded  hover:shadow-sm hover:shadow-primary cursor-pointer "
+                >
                   <Image
                     width={500}
                     height={200}

@@ -34,6 +34,7 @@ const config = {
         // sm: "calc(var(--radius) - 4px)",
         sm: "5px",
         ful: "20px",
+        full: "100%",
       },
       keyframes: {
         "accordion-down": {
