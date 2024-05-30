@@ -6,8 +6,6 @@ import { Skeleton } from "../ui/skeleton";
 import { useRouter } from "next/navigation";
 import { BusinessListType } from "@/types/businessTypes";
 
-
-
 const data = [
   {
     id: 1,
@@ -106,6 +104,12 @@ export const BusinessListSection = ({ category }: { category: string }) => {
   console.log("get catory :", category);
   const [businessList, setBusinessList] = useState<BusinessListType[]>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      // const {data} = await api
+    })();
+  });
 
   useEffect(
     function () {
