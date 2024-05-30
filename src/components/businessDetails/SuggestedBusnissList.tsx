@@ -11,13 +11,13 @@ const SuggestedBusnissList = ({ category }: { category: string }) => {
   );
   return (
     <div className="">
-      <Button className=" text-white">
+      <Button className=" text-white w-full mb-5">
         {" "}
         <CiCalendar className=" text-lg mr-2" /> Book Apointment
       </Button>
       <div>
         {list.map((item, id) => (
-          <div className="flex gap-2 m-2">
+          <div className="flex gap-3 mb-5 m-2">
             <Image
               height={80}
               width={80}

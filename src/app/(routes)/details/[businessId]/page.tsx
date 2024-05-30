@@ -12,7 +12,7 @@ const page = ({ params }: { params: { businessId: string } }) => {
   return (
     <div className="w-full">
       <BusinessInfo businessId={params.businessId} />
-      <div className="flex flex-row gap-5 justify-between">
+      <div className=" flex-col flex md:flex-row gap-5 justify-between">
         <BusinessDescription businessItem={item} />
         <SuggestedBusnissList category={item?.category} />
       </div>

@@ -14,15 +14,16 @@ const BusinessInfo = ({ businessId }: { businessId: string }) => {
 
   console.log(item);
   return (
-    <div className="md:flex m-5 gap-6 justify-between items-center w-full">
-      <div className="flex gap-5">
+    <div className="md:flex my-12 gap-6 justify-between items-center w-full">
+      <div className="flex flex-col md:flex-row md:items-start items-center gap-5 w-full">
         <Image
+          alt={`${item?.name}`}
           width={150}
-          height={150}
-          src={item?.image}
-          className=" rounded-full "
+          height={200}
+          src={`${item?.image}`}
+          className=" rounded-full  h-[150px] object-cover "
         />
-        <div className="flex flex-col gap-3 items-baseline">
+        <div className="flex flex-col gap-3 items-center md:items-baseline">
           <span className=" text-sm bg-orange-200 text-primary px-2 py-0.5 rounded-md">
             {item?.category}{" "}
           </span>
@@ -38,7 +39,7 @@ const BusinessInfo = ({ businessId }: { businessId: string }) => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col md:items-baseline items-center mt-10 md:mt-0 gap-3">
+      <div className="flex flex-col items-center  md:items-end mt-10 md:mt-0 gap-3 w-full">
         <Button className=" w-12 h-8 text-sm  ">
           <Upload className=" text-white" />
         </Button>
