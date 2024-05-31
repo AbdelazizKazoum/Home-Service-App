@@ -7,98 +7,6 @@ import { useRouter } from "next/navigation";
 import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
 
-const data = [
-  {
-    id: 1,
-    name: "Senior Editor",
-    category: "Cleaning",
-    contactPerson: "Neile Knoller",
-    adress: "2 Debra Lane",
-    image: "/images/businessList/house_cleaning.jpg",
-  },
-  {
-    id: 1,
-
-    name: "Nurse",
-    category: "Plumbing",
-    contactPerson: "Haven Gussie",
-    adress: "3 Spaight Drive",
-    image: "/images/businessList/houss_reparing.jpg",
-  },
-  {
-    id: 1,
-
-    name: "Sales Associate",
-    category: "Repair",
-    contactPerson: "Alina Langabeer",
-    adress: "9 Ruskin Center",
-    image: "/images/businessList/washing_clouthes.jpg",
-  },
-  {
-    id: 1,
-
-    name: "Tax Accountant",
-    category: "Plumbing",
-    contactPerson: "Howey Bulloch",
-    adress: "729 Basil Court",
-    image: "/images/businessList/house_cleaning.jpg",
-  },
-  {
-    id: 2,
-
-    name: "Research Associate",
-    category: "Painting",
-    contactPerson: "Hermine Sallowaye",
-    adress: "93 Mayer Center",
-    image: "/images/businessList/washing_clouthes.jpg",
-  },
-  {
-    id: 3,
-
-    name: "Staff Accountant III",
-    category: "Shifting",
-    contactPerson: "Kerry Anscott",
-    adress: "0635 New Castle Pass",
-    image: "/images/businessList/houss_reparing.jpg",
-  },
-  {
-    id: 4,
-
-    name: "Senior Financial Analyst",
-    category: "Repair",
-    contactPerson: "Horten Bleythin",
-    adress: "4670 Dottie Pass",
-    image: "/images/businessList/house_cleaning.jpg",
-  },
-  {
-    id: 5,
-
-    name: "Administrative Assistant I",
-    category: "Plumbing",
-    contactPerson: "Kingsley McFie",
-    adress: "71 Trailsway Alley",
-    image: "/images/businessList/houss_reparing.jpg",
-  },
-  {
-    id: 6,
-
-    name: "Cost Accountant",
-    category: "Cleaning",
-    contactPerson: "Gannie Shoebridge",
-    adress: "275 Jenna Junction",
-    image: "/images/businessList/house_cleaning.jpg",
-  },
-  {
-    id: 7,
-
-    name: "VP Accounting",
-    category: "Electric",
-    contactPerson: "Isahella Alchin",
-    adress: "91002 Haas Street",
-    image: "/images/businessList/house_cleaning.jpg",
-  },
-];
-
 export const BusinessListSection = ({ category }: { category: string }) => {
   const router = useRouter();
 
@@ -147,7 +55,7 @@ export const BusinessListSection = ({ category }: { category: string }) => {
         <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-6">
           {!loaded ? (
             <>
-              {[0, 1].map((item, id) => (
+              {[0, 1, 2, 3].map((item, id) => (
                 <div className="flex flex-col gap-3 ">
                   <Skeleton className="h-[125px]  rounded-xl" />
                   <div className="space-y-2">

@@ -2,6 +2,7 @@
 import BusinessDescription from "@/components/businessDetails/BusinessDescription";
 import BusinessInfo from "@/components/businessDetails/BusinessInfo";
 import SuggestedBusnissList from "@/components/businessDetails/SuggestedBusnissList";
+import { AppointmentSheet } from "@/components/sheets/AppointmentSheet";
 import { businessList } from "@/db/businessListDB";
 import api from "@/lib/axios";
 import { BusinessListType } from "@/types/businessTypes";
@@ -30,6 +31,7 @@ const page = ({ params }: { params: { businessId: string } }) => {
             <div className=" flex-col flex md:flex-row gap-5 justify-between">
               <BusinessDescription businessItem={item} />
               <SuggestedBusnissList category={item?.category} />
+              <AppointmentSheet />
             </div>
           </>
         ) : (
