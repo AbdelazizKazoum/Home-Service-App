@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import Service from "@/models/Service";
 import connect from "@/utils/db";
+// import { businessList } from "@/db/businessListDB";
 
 export const GET = async (request: NextRequest, res: NextResponse) => {
   try {
+    // await Service.insertMany(businessList);
     const services = await Service.find();
     return NextResponse.json(services, { status: 200 });
   } catch (error: any) {

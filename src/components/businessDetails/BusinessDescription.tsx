@@ -1,10 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { businessList } from "@/db/businessListDB";
 import Image from "next/image";
+import { BusinessListType } from "@/types/businessTypes";
 
-const BusinessDescription = ({ businessItem }: { businessItem: any }) => {
+const BusinessDescription = ({
+  businessItem,
+}: {
+  businessItem: BusinessListType;
+}) => {
   return (
     <div className="flex-1">
       <h2 className=" mb-4 text-xl font-bold"> Description</h2>

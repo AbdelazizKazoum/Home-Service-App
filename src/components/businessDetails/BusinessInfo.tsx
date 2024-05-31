@@ -6,13 +6,9 @@ import { CiMail, CiMap, CiLocationOn } from "react-icons/ci";
 import { Button } from "../ui/button";
 import { Share1Icon } from "@radix-ui/react-icons";
 import { Upload } from "lucide-react";
+import { BusinessListType } from "@/types/businessTypes";
 
-const BusinessInfo = ({ businessId }: { businessId: string }) => {
-  const [item, setItem] = useState(
-    businessList.find((item) => businessId === item.id)
-  );
-
-  console.log(item);
+const BusinessInfo = ({ item }: { item: BusinessListType }) => {
   return (
     <div className="md:flex my-12 gap-6 justify-between items-center w-full">
       <div className="flex flex-col md:flex-row md:items-start items-center gap-5 w-full">

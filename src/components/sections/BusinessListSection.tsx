@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import { useRouter } from "next/navigation";
 import { BusinessListType } from "@/types/businessTypes";
+import api from "@/lib/axios";
 
 const data = [
   {
@@ -103,26 +104,34 @@ export const BusinessListSection = ({ category }: { category: string }) => {
 
   console.log("get catory :", category);
   const [businessList, setBusinessList] = useState<BusinessListType[]>([]);
+  const [mutableBusinessList, setMutableBusinessList] = useState<
+    BusinessListType[]
+  >([]);
+
   const [loaded, setLoaded] = useState<boolean>(false);
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
+    console.log(url);
     (async () => {
-      // const {data} = await api
+      const { data } = await api.get("/business");
+      setMutableBusinessList(data);
+      setBusinessList(data);
+      setLoaded(true);
     })();
-  });
+  }, []);
+
+  console.log(mutableBusinessList);
 
   useEffect(
     function () {
       if (category) {
         setBusinessList(
-          data.filter(function (item, index) {
+          mutableBusinessList.filter(function (item, index) {
             return item.category === category;
           })
         );
 
-        setLoaded(true);
-      } else {
-        setBusinessList(data);
         setLoaded(true);
       }
     },
@@ -152,7 +161,7 @@ export const BusinessListSection = ({ category }: { category: string }) => {
             <>
               {businessList.map((item, index) => (
                 <div
-                  onClick={() => router.push(`/details/${item.id}`)}
+                  onClick={() => router.push(`/details/${item._id}`)}
                   className=" shadow-md rounded  hover:shadow-sm hover:shadow-primary cursor-pointer "
                 >
                   <Image
