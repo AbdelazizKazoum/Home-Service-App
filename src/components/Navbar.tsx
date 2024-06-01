@@ -9,7 +9,7 @@ import UserIcon from "./ui/userIcon";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { signOut, useSession } from "next-auth/react";
-
+import { useSearchParams } from "next/navigation";
 const menus = [
   { title: "Home", path: "/your-path" },
   { title: "Blog", path: "/your-path" },
@@ -18,9 +18,11 @@ const menus = [
 ];
 
 const Navbar = () => {
-  const [state, setState] = useState(true);
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openSignup, setOpenSignup] = useState(false);
+  const searchParams = useSearchParams();
+
+  const [state, setState] = useState<boolean>(true);
+  const [openLogin, setOpenLogin] = useState<boolean>(false);
+  const [openSignup, setOpenSignup] = useState<boolean>(false);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const Navbar = () => {
   }, [session]);
   const user = session?.user;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (session?.status === "authenticated") {
       console.log(session?.status);
       location.reload();
@@ -37,6 +39,13 @@ const Navbar = () => {
       console.log("somthing is wrong");
     }
   }, [session]);
+
+  useEffect(() => {
+    const page = searchParams.get("page") || null;
+    if (page) {
+      setOpenLogin(true);
+    }
+  }, [searchParams.get("page")]);
 
   return (
     <nav className="bg-white w-full border-b ">

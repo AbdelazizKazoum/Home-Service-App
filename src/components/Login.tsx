@@ -26,6 +26,7 @@ import { Label } from "@/components/ui/label";
 
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export function Login({
   open,
@@ -36,6 +37,8 @@ export function Login({
 }) {
   //   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  const searchParams = useSearchParams();
+
   if (true) {
     return (
       <div className="bg-white">
@@ -44,10 +47,14 @@ export function Login({
             style={{ borderRadius: "20px" }}
             className="sm:max-w-[425px] bg-white p-10 rounded-full  "
           >
+            <div className=" text-center text-red-500">
+              {searchParams.get("error")}
+            </div>
             <DialogHeader>
               <DialogTitle className=" uppercase text-center mb-5 text-xl font-medium     ">
                 Sign in
               </DialogTitle>
+
               <DialogDescription className=" text-sm text-gray-600 mb-5 ">
                 Log in to your Account.
               </DialogDescription>
