@@ -22,7 +22,10 @@ export const POST = async (request: NextRequest) => {
 
     const booked = await newBooking.save();
 
-    return NextResponse.json(booked, { status: 500 });
+    return NextResponse.json(
+      { data: booked, message: "successfuly booked" },
+      { status: 201 }
+    );
   } catch (error) {
     return NextResponse.json(error, { status: 500 });
   }

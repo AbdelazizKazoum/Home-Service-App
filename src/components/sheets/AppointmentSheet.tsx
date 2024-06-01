@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
+import toast, { Toaster } from "react-hot-toast";
 import { FormEvent, ReactNode, useState } from "react";
 import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
@@ -52,7 +53,7 @@ export function AppointmentSheet({
   const { data, status } = useSession();
 
   //Methods
-  function submitAppointment(e: FormEvent) {
+  async function submitAppointment(e: FormEvent) {
     e.preventDefault();
 
     const booking = {
@@ -63,60 +64,75 @@ export function AppointmentSheet({
       business: businessItem._id,
     };
 
-    // const res = api.post('/booking', )
+    try {
+      toast.loading("Waiting...");
+      const { data } = await api.post("/booking", booking);
+      toast.dismiss();
 
-    console.log("booking  :", booking);
+      toast.success(data.message);
+    } catch (error: any) {
+      toast.dismiss();
+      toast.error(error.response.data);
+    }
   }
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Book a Service</SheetTitle>
-          <SheetDescription className=" text-gray-500">
-            Select Date and Time slot to book a service
-          </SheetDescription>
-        </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <h1> Select date </h1>
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-            className="rounded-md border shadow"
-          />
-          <h1>Slect Time Slot</h1>
-          <div className="grid grid-cols-3 gap-4 w-full mb-10">
-            {timeSlot.map((item, index) => {
-              return (
-                <div className=" " key={index}>
-                  <Button
-                    onClick={() => setTime(item)}
-                    className={`bg-primary/10 text-sm hover:bg-primary hover:text-white text-gray-700 ${
-                      time === item && "bg-primary text-white"
-                    } `}
-                    variant="outline"
-                  >
-                    {item}
-                  </Button>
-                </div>
-              );
-            })}
+    <>
+      <div>
+        <Toaster />
+      </div>
+      <Sheet>
+        <SheetTrigger asChild>{children}</SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Book a Service</SheetTitle>
+            <SheetDescription className=" text-gray-500">
+              Select Date and Time slot to book a service
+            </SheetDescription>
+          </SheetHeader>
+          <div className="grid gap-4 py-4">
+            <div>
+              <Toaster />
+            </div>
+            <h1> Select date </h1>
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              className="rounded-md border shadow"
+            />
+            <h1>Slect Time Slot</h1>
+            <div className="grid grid-cols-3 gap-4 w-full mb-10">
+              {timeSlot.map((item, index) => {
+                return (
+                  <div className=" " key={index}>
+                    <Button
+                      onClick={() => setTime(item)}
+                      className={`bg-primary/10 text-sm hover:bg-primary hover:text-white text-gray-700 ${
+                        time === item && "bg-primary text-white"
+                      } `}
+                      variant="outline"
+                    >
+                      {item}
+                    </Button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button
-              onClick={(e) => submitAppointment(e)}
-              className=" text-white"
-              type="submit"
-            >
-              Save changes
-            </Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button
+                onClick={(e) => submitAppointment(e)}
+                className=" text-white"
+                type="submit"
+              >
+                Save changes
+              </Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
