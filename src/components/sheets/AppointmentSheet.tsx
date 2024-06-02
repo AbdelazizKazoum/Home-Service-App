@@ -72,7 +72,19 @@ export function AppointmentSheet({
       toast.success(data.message);
     } catch (error: any) {
       toast.dismiss();
-      toast.error(error.response.data);
+      console.log(error.response.data.message);
+      toast.error(
+        typeof error.response.data === "string"
+          ? error.response.data
+          : error.response.data.message
+      );
+      // toast.error(
+      //   error.response.data
+      //     ? error.response.data
+      //     : error.response.data.message
+      //     ? error.response.data.message
+      //     : "Error"
+      // );
     }
   }
 

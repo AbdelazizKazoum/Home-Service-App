@@ -15,7 +15,6 @@ const SuggestedBusnissList = ({ item }: { item: BusinessListType }) => {
   useEffect(() => {
     (async () => {
       const { data } = await api.get("/business");
-
       setList(
         data.filter((el: BusinessListType) => el.category == item.category)
       );
@@ -27,7 +26,6 @@ const SuggestedBusnissList = ({ item }: { item: BusinessListType }) => {
     <div className="">
       <AppointmentSheet businessItem={item}>
         <Button className=" text-white w-full mb-5">
-          {" "}
           <CiCalendar className=" text-lg mr-2" /> Book Apointment
         </Button>
       </AppointmentSheet>

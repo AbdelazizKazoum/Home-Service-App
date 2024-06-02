@@ -16,11 +16,13 @@ const page = ({ params }: { params: { businessId: string } }) => {
   const route = useRouter();
 
   useEffect(() => {
-    (async () => {
-      const { data } = await api.get(`/business/${params.businessId}`);
-      console.log(data);
-      setItem(data);
-    })();
+    if (status === "authenticated") {
+      (async () => {
+        const { data } = await api.get(`/business/${params.businessId}`);
+        console.log(data);
+        setItem(data);
+      })();
+    }
   }, []);
 
   if (status === "loading") {

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+import Service from "./Service";
 const bookingSchema = new Schema(
   {
     username: {
@@ -21,6 +21,11 @@ const bookingSchema = new Schema(
     business: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Service",
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["booked", "completed"],
       required: true,
     },
   },

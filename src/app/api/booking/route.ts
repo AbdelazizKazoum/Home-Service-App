@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Booking from "@/models/Booking";
 import connect from "@/utils/db";
+
+// Save new booking
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
 
@@ -18,7 +20,7 @@ export const POST = async (request: NextRequest) => {
 
       return NextResponse.json("this booking is not valid !", { status: 301 });
     }
-    const newBooking = new Booking(body);
+    const newBooking = new Booking({ ...body, status: "booked" });
 
     const booked = await newBooking.save();
 
