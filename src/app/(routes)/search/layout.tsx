@@ -1,4 +1,4 @@
-import { CategoryMenu } from "@/components/CategoryMenu";
+import { CategoryMenu } from "@/components/categoryPage/CategoryMenu";
 import React, { ReactNode } from "react";
 
 export default function layout({ children }: { children: any }) {

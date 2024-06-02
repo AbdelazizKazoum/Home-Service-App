@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const UserIcon = () => {
   return (
@@ -38,18 +39,15 @@ const UserIcon = () => {
               My Account
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="" />
-            <DropdownMenuItem className=" text-gray-600 ">
+            <DropdownMenuItem className="  text-gray-600 cursor-pointer hover:text-primary ">
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem className=" text-gray-600 ">
-              Billing
-            </DropdownMenuItem>
-            <DropdownMenuItem className=" text-gray-600 ">
-              Team
+            <DropdownMenuItem className=" text-gray-600 cursor-pointer hover:text-primary ">
+              <Link href="/bookings">My bookings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => signOut({ callbackUrl: "/" })}
-              className=" cursor-pointer text-gray-600 "
+              className="  text-gray-600 cursor-pointer hover:text-primary "
             >
               Log out
             </DropdownMenuItem>

@@ -7,29 +7,28 @@ import { useRouter } from "next/navigation";
 import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
 
-export const BusinessListSection = ({ category }: { category: string }) => {
+export const BusinessListByCategory = ({ category }: { category: string }) => {
   const router = useRouter();
 
   const [businessList, setBusinessList] = useState<BusinessListType[]>();
 
   const [loaded, setLoaded] = useState<boolean>(false);
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get("/business");
-      setBusinessList(data);
+      setBusinessList(
+        data.filter((item: BusinessListType) => item.category === category)
+      );
+
+      console.log("category :", category);
+
       setLoaded(true);
+      console.log("list is loaded");
     })();
   }, []);
 
-  // useEffect(() => {
-  //   if (category) {
-  //     setBusinessList(
-  //       mutableBusinessList?.filter((item) => item.category === category)
-  //     );
-  //   }
-  // }, [category]);
+  console.log(businessList);
 
   return (
     <>
