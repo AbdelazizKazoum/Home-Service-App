@@ -21,6 +21,14 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/[...nextAuth]/route.ts", "src/app/api/auth/[...nextAuth]/route.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/api/auth/[...nextAuth]/route.ts",
+    "src/app/api/auth/[...nextAuth]/route.js",
+    "src/redux/user/businessSlice.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -6,21 +6,20 @@ import { Skeleton } from "../ui/skeleton";
 import { useRouter } from "next/navigation";
 import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getBusinessList } from "@/redux/business/businessThunk";
 
 export const BusinessListSection = ({ category }: { category: string }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [businessList, setBusinessList] = useState<BusinessListType[]>();
-
+  const { items, http } = useSelector((state) => state.business);
   const [loaded, setLoaded] = useState<boolean>(false);
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
-    (async () => {
-      const { data } = await api.get("/business");
-      setBusinessList(data);
-      setLoaded(true);
-    })();
+    dispatch(getBusinessList());
+    setLoaded(true);
   }, []);
 
   // useEffect(() => {
@@ -52,7 +51,7 @@ export const BusinessListSection = ({ category }: { category: string }) => {
             </>
           ) : (
             <>
-              {businessList.map((item, index) => (
+              {items.map((item, index) => (
                 <div
                   onClick={() => router.push(`/details/${item._id}`)}
                   className=" shadow-md rounded  hover:shadow-sm hover:shadow-primary cursor-pointer "
