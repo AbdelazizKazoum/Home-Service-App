@@ -51,7 +51,7 @@ export const BusinessListByCategory = ({ category }: { category: string }) => {
             </>
           ) : (
             <>
-              {businessList.map((item, index) => (
+              {businessList?.map((item, index) => (
                 <div
                   onClick={() => router.push(`/details/${item._id}`)}
                   className=" shadow-md rounded  hover:shadow-sm hover:shadow-primary cursor-pointer "

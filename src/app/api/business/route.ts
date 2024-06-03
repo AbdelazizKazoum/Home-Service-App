@@ -5,7 +5,7 @@ import connect from "@/utils/db";
 
 export const GET = async (request: NextRequest, res: NextResponse) => {
   try {
-    // await Service.insertMany(businessList);
+    await connect();
     const services = await Service.find();
     return NextResponse.json(services, { status: 200 });
   } catch (error: any) {

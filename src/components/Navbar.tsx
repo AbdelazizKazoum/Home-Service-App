@@ -23,26 +23,15 @@ const Navbar = () => {
   const [state, setState] = useState<boolean>(true);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
+  useEffect(() => {}, [session]);
+
   const user = session?.user;
 
   useEffect(() => {
-    if (session?.status === "authenticated") {
-      console.log(session?.status);
-      location.reload();
-    } else {
-      console.log(session);
-      console.log("somthing is wrong");
-    }
-  }, [session]);
-
-  useEffect(() => {
     const page = searchParams.get("page") || null;
-    if (page) {
+    if (page === "login") {
       setOpenLogin(true);
     }
   }, [searchParams.get("page")]);
@@ -91,22 +80,24 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <div className="flex gap-4">
-                <Button onClick={() => setOpenLogin(true)} variant="ghost">
-                  Login
-                </Button>
-                <Login open={openLogin} setOpen={setOpenLogin} />
+              {status !== "loading" && (
+                <div className="flex gap-4">
+                  <Button onClick={() => setOpenLogin(true)} variant="ghost">
+                    Login
+                  </Button>
+                  <Login open={openLogin} setOpen={setOpenLogin} />
 
-                <Button
-                  onClick={() => setOpenSignup(true)}
-                  className="text-white"
-                  variant="default"
-                  size="lg"
-                >
-                  Signin
-                </Button>
-                <Signup open={openSignup} setOpen={setOpenSignup} />
-              </div>
+                  <Button
+                    onClick={() => setOpenSignup(true)}
+                    className="text-white"
+                    variant="default"
+                    size="lg"
+                  >
+                    Signin
+                  </Button>
+                  <Signup open={openSignup} setOpen={setOpenSignup} />
+                </div>
+              )}
             </>
           )}
         </div>
