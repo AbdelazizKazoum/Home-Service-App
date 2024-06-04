@@ -1,4 +1,5 @@
 "use client";
+import { useAppDispatch } from "@/app/hooks/reduxHooks";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import api from "@/lib/axios";
+import { fetchBookingsByEmail } from "@/redux/booking/bookingThnak";
+import { RootState } from "@/redux/rootReducer";
 import { BookingType } from "@/types/bookingTypes";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -24,22 +27,19 @@ import {
   CiTimer,
   CiUser,
 } from "react-icons/ci";
+import { useSelector } from "react-redux";
 
 export function MyBookings() {
   const [bookings, setBookings] = useState<BookingType[]>();
   const [loaded, setLoaded] = useState(false);
   const { data, status } = useSession();
   const route = useRouter();
+  const dispatch = useAppDispatch();
+  const { items, http } = useSelector((state: RootState) => state.bookings);
 
   useEffect(() => {
     if (status === "authenticated") {
-      (async () => {
-        const { data: bookings } = await api.get(
-          `/booking/${data?.user?.email}`
-        );
-        setBookings(bookings);
-        setLoaded(true);
-      })();
+      dispatch(fetchBookingsByEmail(data?.user?.email));
     }
   }, [data]);
 
@@ -50,11 +50,13 @@ export function MyBookings() {
     route.push("/?page=login&error=Login is required for booking!");
   }
 
+  console.log("bookings :", items);
+
   // Render bookings function
   function renderBookings(status: string) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {bookings?.map((item, id) => {
+        {items?.map((item, id) => {
           if (item.status === status) {
             return (
               <div className="flex gap-3  p-3 w-full border">
@@ -107,7 +109,7 @@ export function MyBookings() {
         <TabsTrigger value="booked">Booked</TabsTrigger>
         <TabsTrigger value="completed">Completed</TabsTrigger>
       </TabsList>
-      {loaded == true ? (
+      {http.loaded == true ? (
         <>
           <TabsContent value="booked">{renderBookings("booked")}</TabsContent>
           <TabsContent value="completed">

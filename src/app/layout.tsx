@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/utils/SessionProvider";
+import ReduxProvider from "@/utils/ReduxProvider";
 
 export const metadata = {
   title: "Promptopia",
@@ -19,13 +20,15 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         {
-          <SessionProvider session={session}>
-            <div className="">
-              {" "}
-              <Navbar />
-              <main className="app">{children}</main>
-            </div>
-          </SessionProvider>
+          <ReduxProvider>
+            <SessionProvider session={session}>
+              <div className="">
+                {" "}
+                <Navbar />
+                <main className="app">{children}</main>
+              </div>
+            </SessionProvider>
+          </ReduxProvider>
         }
       </body>
     </html>

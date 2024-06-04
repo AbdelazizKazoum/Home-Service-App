@@ -7,20 +7,29 @@ import Image from "next/image";
 import { AppointmentSheet } from "../sheets/AppointmentSheet";
 import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/rootReducer";
+import { useAppDispatch } from "@/app/hooks/reduxHooks";
+import { getBusinessList } from "@/redux/business/businessThunk";
 
 const SuggestedBusnissList = ({ item }: { item: BusinessListType }) => {
   const [list, setList] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const { items, http } = useSelector((state: RootState) => state.business);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    (async () => {
-      const { data } = await api.get("/business");
+    if (items.length > 0) {
       setList(
-        data.filter((el: BusinessListType) => el.category == item.category)
+        items.filter((el: BusinessListType) => el.category == item.category)
       );
       setLoaded(true);
-    })();
-  }, []);
+    } else {
+      dispatch(getBusinessList());
+    }
+  }, [items]);
+
+  console.log("items of business", items);
 
   return (
     <div className="">
@@ -29,7 +38,7 @@ const SuggestedBusnissList = ({ item }: { item: BusinessListType }) => {
           <CiCalendar className=" text-lg mr-2" /> Book Apointment
         </Button>
       </AppointmentSheet>
-      {loaded ? (
+      {http.loaded ? (
         <div>
           {list.map((item: BusinessListType, id: number) => (
             <div className="flex gap-3 mb-5 m-2">

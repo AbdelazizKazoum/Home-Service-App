@@ -8,7 +8,7 @@ interface businessStateType {
   selected: BusinessListType;
   http: {
     status: string;
-    loading: boolean;
+    loaded: boolean;
     message: string;
   };
 }
@@ -31,8 +31,6 @@ const initialState: businessStateType = {
   },
 };
 
-console.log("hello :", initialState);
-
 const businessSlice = createSlice({
   name: "business",
   initialState,
@@ -41,7 +39,7 @@ const businessSlice = createSlice({
     builder
       .addCase(getBusinessList.pending, (state: businessStateType) => {
         state.http.status = "pending";
-        state.http.loading = true;
+        state.http.loaded = false;
       })
       .addCase(
         getBusinessList.fulfilled,
@@ -50,7 +48,7 @@ const businessSlice = createSlice({
           action: PayloadAction<BusinessListType[]>
         ) => {
           state.items = action.payload;
-          state.http.loading = false;
+          state.http.loaded = true;
           state.http.status = "fulfilled";
           state.http.message = "loaded succefully";
         }
@@ -58,20 +56,20 @@ const businessSlice = createSlice({
       .addCase(
         getBusinessList.rejected,
         (state: businessStateType, action: PayloadAction<string>) => {
-          state.http.loading = false;
+          state.http.loaded = true;
           state.http.status = "rejected";
           state.http.message = action.payload;
         }
       )
       .addCase(getBusinessById.pending, (state: businessStateType) => {
         state.http.status = "pending";
-        state.http.loading = true;
+        state.http.loaded = false;
       })
       .addCase(
         getBusinessById.fulfilled,
         (state: businessStateType, action: PayloadAction<BusinessListType>) => {
           state.selected = action.payload;
-          state.http.loading = false;
+          state.http.loaded = true;
           state.http.status = "fulfilled";
           state.http.message = "loaded succefully";
         }
@@ -79,7 +77,7 @@ const businessSlice = createSlice({
       .addCase(
         getBusinessById.rejected,
         (state: businessStateType, action: PayloadAction<string>) => {
-          state.http.loading = false;
+          state.http.loaded = false;
           state.http.status = "rejected";
           state.http.message = action.payload;
         }

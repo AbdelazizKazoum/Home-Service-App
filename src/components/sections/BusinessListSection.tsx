@@ -9,12 +9,13 @@ import api from "@/lib/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessList } from "@/redux/business/businessThunk";
 import { useAppSelector } from "@/app/hooks/reduxHooks";
+import { RootState } from "@/redux/rootReducer";
 
 export const BusinessListSection = ({ category }: { category: string }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { items, http } = useAppSelector((state) => state.business);
+  const { items, http } = useSelector((state: RootState) => state.business);
   const [loaded, setLoaded] = useState<boolean>(false);
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -52,7 +53,7 @@ export const BusinessListSection = ({ category }: { category: string }) => {
             </>
           ) : (
             <>
-              {items.map((item, index) => (
+              {items?.map((item, index) => (
                 <div
                   onClick={() => router.push(`/details/${item._id}`)}
                   className=" shadow-md rounded  hover:shadow-sm hover:shadow-primary cursor-pointer "
