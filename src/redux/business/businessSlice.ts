@@ -8,7 +8,7 @@ interface businessStateType {
   selected: BusinessListType;
   http: {
     status: string;
-    loading: false;
+    loading: boolean;
     message: string;
   };
 }
@@ -39,13 +39,16 @@ const businessSlice = createSlice({
   reducers: {},
   extraReducers: (builder: any) => {
     builder
-      .addCase(getBusinessList.pending, (state: RootState) => {
+      .addCase(getBusinessList.pending, (state: businessStateType) => {
         state.http.status = "pending";
         state.http.loading = true;
       })
       .addCase(
         getBusinessList.fulfilled,
-        (state: RootState, action: PayloadAction<BusinessListType[]>) => {
+        (
+          state: businessStateType,
+          action: PayloadAction<BusinessListType[]>
+        ) => {
           state.items = action.payload;
           state.http.loading = false;
           state.http.status = "fulfilled";
@@ -54,19 +57,19 @@ const businessSlice = createSlice({
       )
       .addCase(
         getBusinessList.rejected,
-        (state: RootState, action: PayloadAction<string>) => {
+        (state: businessStateType, action: PayloadAction<string>) => {
           state.http.loading = false;
           state.http.status = "rejected";
           state.http.message = action.payload;
         }
       )
-      .addCase(getBusinessById.pending, (state: RootState) => {
+      .addCase(getBusinessById.pending, (state: businessStateType) => {
         state.http.status = "pending";
         state.http.loading = true;
       })
       .addCase(
         getBusinessById.fulfilled,
-        (state: RootState, action: PayloadAction<BusinessListType>) => {
+        (state: businessStateType, action: PayloadAction<BusinessListType>) => {
           state.selected = action.payload;
           state.http.loading = false;
           state.http.status = "fulfilled";
@@ -75,7 +78,7 @@ const businessSlice = createSlice({
       )
       .addCase(
         getBusinessById.rejected,
-        (state: RootState, action: PayloadAction<string>) => {
+        (state: businessStateType, action: PayloadAction<string>) => {
           state.http.loading = false;
           state.http.status = "rejected";
           state.http.message = action.payload;

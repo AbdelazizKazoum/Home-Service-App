@@ -15,15 +15,14 @@ export const getBusinessList = createAsyncThunk<
 });
 
 // Get business by id
-export const getBusinessById = createAsyncThunk<
-  string[],
-  void,
-  { rejectValue: string }
->("business/fetchBusinessList", async (id: string, thunkApi: any) => {
-  try {
-    const { data } = await api.get(`/business/${id}`);
-    return data;
-  } catch (error: any) {
-    return thunkApi.rejectWithValue(error.message);
+export const getBusinessById = createAsyncThunk(
+  "business/getbusinessList",
+  async (id: string, thunkApi: any) => {
+    try {
+      const { data } = await api.get(`/business/${id}`);
+      return data;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.message);
+    }
   }
-});
+);

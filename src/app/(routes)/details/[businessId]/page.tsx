@@ -1,4 +1,5 @@
 "use client";
+import { useAppSelector } from "@/app/hooks/reduxHooks";
 import BusinessDescription from "@/components/businessDetails/BusinessDescription";
 import BusinessInfo from "@/components/businessDetails/BusinessInfo";
 import SuggestedBusnissList from "@/components/businessDetails/SuggestedBusnissList";
@@ -15,15 +16,9 @@ const page = ({ params }: { params: { businessId: string } }) => {
   const { data, status } = useSession();
   const route = useRouter();
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      (async () => {
-        const { data } = await api.get(`/business/${params.businessId}`);
-        console.log(data);
-        setItem(data);
-      })();
-    }
-  }, []);
+  const { selected, http } = useAppSelector((state) => state.business);
+
+  useEffect(() => {}, []);
 
   if (status === "loading") {
     return <div>Loading....</div>;

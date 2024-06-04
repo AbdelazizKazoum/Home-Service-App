@@ -8,12 +8,13 @@ import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessList } from "@/redux/business/businessThunk";
+import { useAppSelector } from "@/app/hooks/reduxHooks";
 
 export const BusinessListSection = ({ category }: { category: string }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { items, http } = useSelector((state) => state.business);
+  const { items, http } = useAppSelector((state) => state.business);
   const [loaded, setLoaded] = useState<boolean>(false);
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
