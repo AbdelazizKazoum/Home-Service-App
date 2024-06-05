@@ -26,7 +26,7 @@ const initialState: businessStateType = {
   },
   http: {
     status: "idle",
-    loading: false,
+    loaded: false,
     message: "",
   },
 };

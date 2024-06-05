@@ -8,12 +8,12 @@ import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessList } from "@/redux/business/businessThunk";
-import { useAppSelector } from "@/app/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/reduxHooks";
 import { RootState } from "@/redux/rootReducer";
 
 export const BusinessListSection = ({ category }: { category: string }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { items, http } = useSelector((state: RootState) => state.business);
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -67,7 +67,7 @@ export const BusinessListSection = ({ category }: { category: string }) => {
                   />
 
                   <div className="flex flex-col items-baseline mt-2 gap-2 p-3  ">
-                    <h2 className=" text-xs text-primary  bg-orange-200 rounded-full p-2     ">
+                    <h2 className=" text-xs text-primary  bg-orange-200 rounded-md p-2     ">
                       {item.category}
                     </h2>
                     <h2 className=" font-bold   "> {item.name} </h2>
@@ -78,7 +78,7 @@ export const BusinessListSection = ({ category }: { category: string }) => {
                     <h2 className=" text-xs"> {item.adress} </h2>
                     <Button
                       variant={"default"}
-                      className="text-white cursor-pointer"
+                      className="text-white cursor-pointer mt-2"
                     >
                       Book Now
                     </Button>

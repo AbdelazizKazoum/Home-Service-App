@@ -13,7 +13,7 @@ import { useAppDispatch } from "@/app/hooks/reduxHooks";
 import { getBusinessList } from "@/redux/business/businessThunk";
 
 const SuggestedBusnissList = ({ item }: { item: BusinessListType }) => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<BusinessListType[]>([]);
   const [loaded, setLoaded] = useState(false);
   const { items, http } = useSelector((state: RootState) => state.business);
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const SuggestedBusnissList = ({ item }: { item: BusinessListType }) => {
   useEffect(() => {
     if (items.length > 0) {
       setList(
-        items.filter((el: BusinessListType) => el.category == item.category)
+        items?.filter((el: BusinessListType) => el.category == item.category)
       );
       setLoaded(true);
     } else {
