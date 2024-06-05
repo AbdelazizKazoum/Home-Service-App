@@ -24,7 +24,12 @@ export const getBusinessById = createAsyncThunk(
       const { data } = await api.get(`/business/${id}`);
       return data;
     } catch (error: any) {
-      return thunkApi.rejectWithValue(error.message);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong";
+
+      return thunkApi.rejectWithValue(errorMessage);
     }
   }
 );

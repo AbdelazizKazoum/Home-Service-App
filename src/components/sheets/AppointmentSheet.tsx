@@ -13,10 +13,14 @@ import {
 } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
 import toast, { Toaster } from "react-hot-toast";
-import { FormEvent, ReactNode, useState } from "react";
+import { FormEvent, ReactNode, useEffect, useState } from "react";
 import { BusinessListType } from "@/types/businessTypes";
 import api from "@/lib/axios";
 import { useSession } from "next-auth/react";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/reduxHooks";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/rootReducer";
+import { fetchBookingsByDate } from "@/redux/booking/bookingThnak";
 
 export function AppointmentSheet({
   children,
@@ -26,7 +30,7 @@ export function AppointmentSheet({
   businessItem: BusinessListType;
 }) {
   //State
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date>(new Date());
   const [timeSlot, setTimeSlot] = useState<string[]>([
     "10:00 AM",
     "10:30 AM",
@@ -51,7 +55,16 @@ export function AppointmentSheet({
 
   //hooks
   const { data, status } = useSession();
+  const dispatch = useAppDispatch();
+  const { todayItems, http } = useSelector(
+    (state: RootState) => state.bookings
+  );
 
+  useEffect(() => {
+    dispatch(fetchBookingsByDate(date));
+  }, [date]);
+
+  console.log("today items :", todayItems);
   //Methods
   async function submitAppointment(e: FormEvent) {
     e.preventDefault();
@@ -110,7 +123,7 @@ export function AppointmentSheet({
             <Calendar
               mode="single"
               selected={date}
-              onSelect={setDate}
+              onSelect={setDate as any}
               className="rounded-md border shadow"
             />
             <h1>Slect Time Slot</h1>

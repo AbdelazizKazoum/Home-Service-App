@@ -1,9 +1,10 @@
 import { BookingType } from "@/types/bookingTypes";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { fetchBookingsByEmail } from "./bookingThnak";
+import { fetchBookingsByDate, fetchBookingsByEmail } from "./bookingThnak";
 
 interface bookingStateType {
   items: BookingType[];
+  todayItems: BookingType[];
   selected: BookingType | null;
   http: {
     status: string;
@@ -14,6 +15,7 @@ interface bookingStateType {
 
 const initialState: bookingStateType = {
   items: [],
+  todayItems: [],
   selected: null,
   http: {
     status: "idle",
@@ -43,6 +45,27 @@ const bookingSlice = createSlice({
       )
       .addCase(
         fetchBookingsByEmail.rejected,
+        (state: bookingStateType, action: PayloadAction<string>) => {
+          state.http.loaded = true;
+          state.http.status = "rejected";
+          state.http.message = action.payload;
+        }
+      )
+      .addCase(fetchBookingsByDate.pending, (state: bookingStateType) => {
+        state.http.status = "pending";
+        state.http.loaded = false;
+      })
+      .addCase(
+        fetchBookingsByDate.fulfilled,
+        (state: bookingStateType, action: PayloadAction<BookingType[]>) => {
+          state.todayItems = action.payload;
+          state.http.loaded = true;
+          state.http.status = "fulfilled";
+          state.http.message = "loaded succefully";
+        }
+      )
+      .addCase(
+        fetchBookingsByDate.rejected,
         (state: bookingStateType, action: PayloadAction<string>) => {
           state.http.loaded = true;
           state.http.status = "rejected";
