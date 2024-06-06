@@ -31,6 +31,7 @@ export function AppointmentSheet({
 }) {
   //State
   const [date, setDate] = useState<Date>(new Date());
+  const [reserved, setReserved] = useState([]);
   const [timeSlot, setTimeSlot] = useState<string[]>([
     "10:00 AM",
     "10:30 AM",
@@ -56,15 +57,17 @@ export function AppointmentSheet({
   //hooks
   const { data, status } = useSession();
   const dispatch = useAppDispatch();
-  const { todayItems, http } = useSelector(
+  const { reservedTime, http } = useSelector(
     (state: RootState) => state.bookings
   );
 
   useEffect(() => {
-    dispatch(fetchBookingsByDate(date));
+    console.log("get set date : ", date.toLocaleDateString());
+    if (date != undefined) {
+      dispatch(fetchBookingsByDate(date.toISOString()));
+    }
   }, [date]);
 
-  console.log("today items :", todayItems);
   //Methods
   async function submitAppointment(e: FormEvent) {
     e.preventDefault();
@@ -72,7 +75,7 @@ export function AppointmentSheet({
     const booking = {
       username: "null",
       userEmail: data?.user?.email,
-      date: date,
+      date: date.toLocaleDateString(),
       time: time,
       business: businessItem._id,
     };
@@ -81,16 +84,17 @@ export function AppointmentSheet({
       toast.loading("Waiting...");
       const { data } = await api.post("/booking", booking);
       toast.dismiss();
+      dispatch(fetchBookingsByDate(date.toISOString()));
 
       toast.success(data.message);
     } catch (error: any) {
       toast.dismiss();
-      console.log(error.response.data.message);
       toast.error(
-        typeof error.response.data === "string"
-          ? error.response.data
-          : error.response.data.message
+        typeof error.response?.data === "string"
+          ? error.response?.data
+          : error.response?.data.message || "Somthing went wrong!"
       );
+      console.log(error);
       // toast.error(
       //   error.response.data
       //     ? error.response.data
@@ -132,6 +136,7 @@ export function AppointmentSheet({
                 return (
                   <div className=" " key={index}>
                     <Button
+                      disabled={reservedTime.includes(item)}
                       onClick={() => setTime(item)}
                       className={`bg-primary/10 text-sm hover:bg-primary hover:text-white text-gray-700 ${
                         time === item && "bg-primary text-white"

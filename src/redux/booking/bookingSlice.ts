@@ -5,6 +5,7 @@ import { fetchBookingsByDate, fetchBookingsByEmail } from "./bookingThnak";
 interface bookingStateType {
   items: BookingType[];
   todayItems: BookingType[];
+  reservedTime: string[];
   selected: BookingType | null;
   http: {
     status: string;
@@ -16,6 +17,7 @@ interface bookingStateType {
 const initialState: bookingStateType = {
   items: [],
   todayItems: [],
+  reservedTime: [],
   selected: null,
   http: {
     status: "idle",
@@ -59,6 +61,7 @@ const bookingSlice = createSlice({
         fetchBookingsByDate.fulfilled,
         (state: bookingStateType, action: PayloadAction<BookingType[]>) => {
           state.todayItems = action.payload;
+          state.reservedTime = action.payload.map((item) => item.time);
           state.http.loaded = true;
           state.http.status = "fulfilled";
           state.http.message = "loaded succefully";

@@ -22,6 +22,8 @@ export const POST = async (request: NextRequest) => {
     }
     const newBooking = new Booking({ ...body, status: "booked" });
 
+    console.log(newBooking);
+
     const booked = await newBooking.save();
 
     return NextResponse.json(
