@@ -6,7 +6,8 @@ export const GET = async (
   request: NextRequest,
   context: { params: { date: string } }
 ) => {
-  const date = context.params.date;
+  const date = new Date(context.params.date);
+  date.setHours(0, 0, 0, 0);
 
   console.log("this is the date :", date);
 

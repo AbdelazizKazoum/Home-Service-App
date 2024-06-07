@@ -61,9 +61,11 @@ export function AppointmentSheet({
     (state: RootState) => state.bookings
   );
 
+  console.log("loading :", date);
+
   useEffect(() => {
-    console.log("get set date : ", date.toLocaleDateString());
     if (date != undefined) {
+      console.log("loading date :", date);
       dispatch(fetchBookingsByDate(date.toISOString()));
     }
   }, [date]);
@@ -75,7 +77,7 @@ export function AppointmentSheet({
     const booking = {
       username: "null",
       userEmail: data?.user?.email,
-      date: date.toLocaleDateString(),
+      date: date,
       time: time,
       business: businessItem._id,
     };
@@ -94,6 +96,7 @@ export function AppointmentSheet({
           ? error.response?.data
           : error.response?.data.message || "Somthing went wrong!"
       );
+
       console.log(error);
       // toast.error(
       //   error.response.data
@@ -127,7 +130,7 @@ export function AppointmentSheet({
             <Calendar
               mode="single"
               selected={date}
-              onSelect={setDate as any}
+              onSelect={(e: any) => setDate(e)}
               className="rounded-md border shadow"
             />
             <h1>Slect Time Slot</h1>
